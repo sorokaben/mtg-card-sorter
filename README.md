@@ -18,6 +18,8 @@ The project was developed as part of a multidisciplinary effort to build a physi
 ## Features
 
 - **Card Recognition:** Identify Magic: The Gathering cards from images.
+- **Live Camera Recognition:** Capture and identify cards directly
+  from a connected camera using OpenCV.
 - **API Integration:** Retrieve card information using the Scryfall API.
 - **Multiple Sorting Modes:** Classify cards based on type, color, or value.
 - **Batch Processing:** Process multiple card images and organize them into folders.
@@ -76,7 +78,43 @@ Configure your Google Cloud Vision credentials before running the application.
 
 ## Usage
 
-### 1. Process a Single Card
+### Live Camera Scanning
+
+CardSorter supports real-time card recognition using a connected camera.
+
+**To start live scanning:**
+
+1. Connect your camera to your computer.
+2. Launch the interactive application:
+
+   ```bash
+   python -m src.cli
+   ```
+
+3. Select option **5** from the menu:
+
+   ```text
+   5. Use Phone Camera To Scan
+   ```
+
+4. Position a Magic: The Gathering card in front of the camera.
+5. The application will attempt to identify the card and send the result to the sorting system.
+6. Press **Q** in the camera window to stop scanning.
+
+**Camera configuration:**
+
+The application currently uses OpenCV camera index `1`:
+
+```python
+cam = cv2.VideoCapture(1)
+```
+
+If your camera is not detected, try changing the index to `0` or another available device number in `src/cli.py`.
+
+**Note:** Live camera scanning uses the sorting behavior defined in `main.py`. The `color`, `type`, and `value` modes are available through the software's sorting interface, but switching between these modes during live camera operation has not been verified.
+
+
+### 1. Process a Single Card from Folder
 
 To identify an individual card and determine its sorting bin:
 
